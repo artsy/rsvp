@@ -15,8 +15,8 @@
     <% @events.each do |event| %>
       <tr>
         <td><%= link_to event.name, admin_event_url(event) %></td>
-        <td></td>
-        <td><%= link_to 'Destroy', admin_event_url(event), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= count_to_capacity(event) %></td>
+        <td><%= link_to 'Delete', admin_event_url(event), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

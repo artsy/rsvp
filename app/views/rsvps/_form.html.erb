@@ -1,13 +1,9 @@
 <%= form_for(rsvp, url: create_rsvp_path) do |f| %>
   <% if rsvp.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(rsvp.errors.count, "error") %> prohibited this rsvp from being saved:</h2>
-
-      <ul>
+    <div class="rsvp__errors">
       <% rsvp.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+        <p><%= message %></p>
       <% end %>
-      </ul>
     </div>
   <% end %>
 
