@@ -1,3 +1,26 @@
-// Place all the styles related to the Events controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.edit-event {
+  &__form, &__rsvps {
+    display: inline-block;
+    vertical-align: top;
+    padding: 0 20px;
+  }
+  &__form {
+    width: 35%;
+  }
+  &__rsvps {
+    width: 60%;
+  }
+}
+
+.waitlisted {
+  width: 10px;
+  height: 10px;
+  border-radius: 20px;
+  background-color: #eee;
+  &--red {
+    background-color: $red;
+  }
+  &--green {
+    background-color: $green;
+  }
+}

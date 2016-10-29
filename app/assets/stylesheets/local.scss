@@ -18,8 +18,9 @@ table{
   width: 100%;
 }
 
-.table > thead > tr > th {
+.table > thead > tr > th, .table > tbody > tr > td{
   border-bottom: none;
+  vertical-align: middle;
 }
 
 section#main {
@@ -55,4 +56,5 @@ label {
   padding: 20px 0;
 }
 
-@import 'rsvps'
+@import "rsvps";
+@import "events";

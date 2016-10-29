@@ -23,7 +23,6 @@ class RsvpsController < ApplicationController
   end
 
   def thank_you
-
   end
 
   private
@@ -32,6 +31,6 @@ class RsvpsController < ApplicationController
     end
 
     def rsvp_params
-      params.require(:rsvp).permit(:name, :email, :guests)
+      params.require(:rsvp).permit(:name, :email, { guests: [] })
     end
 end

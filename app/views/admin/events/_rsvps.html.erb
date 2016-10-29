@@ -1,0 +1,28 @@
+
+<h1>RSVPs</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Guests</th>
+      <th>RSVP Date</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @event.rsvps.each do |rsvp| %>
+      <tr>
+        <td><div class="waitlisted waitlisted--${rsvp.waitlisted}"></div></td>
+        <td><%= rsvp.name %></td>
+        <td><%= rsvp.email %></td>
+        <td><%= rsvp.guests.join(",") %></td>
+        <td><%= rsvp.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

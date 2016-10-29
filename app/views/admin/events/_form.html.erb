@@ -13,30 +13,30 @@
 
   <div class="field">
     <%= f.label :name %>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, class: 'form-control' %>
   </div>
 
   <div class="field">
     <%= f.label :presented_by %>
-    <%= f.text_field :presented_by %>
+    <%= f.text_field :presented_by, class: 'form-control' %>
   </div>
 
   <div class="field">
     <%= f.label :guests_allowed %>
-    <%= f.number_field :guests_allowed %>
+    <%= f.number_field :guests_allowed, class: 'form-control' %>
   </div>
 
   <div class="field">
     <%= f.label :capacity %>
-    <%= f.number_field :capacity %>
+    <%= f.number_field :capacity, class: 'form-control' %>
   </div>
 
   <div class="field">
     <%= f.label :lock_fields %>
-    <%= f.check_box :lock_fields %>
+    <%= f.check_box :lock_fields, class: 'form-control' %>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: 'btn btn-primary btn-full-width' %>
   </div>
 <% end %>
