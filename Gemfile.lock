@@ -68,6 +68,8 @@ GEM
     erubis (2.7.0)
     execjs (2.7.0)
     ffi (1.9.14)
+    friendly_id (5.1.0)
+      activerecord (>= 4.0.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     haml (4.0.7)
@@ -192,6 +194,7 @@ DEPENDENCIES
   bourbon (= 4.2.3)
   byebug
   coffee-rails (~> 4.2)
+  friendly_id (~> 5.1.0)
   haml-rails
   jbuilder (~> 2.5)
   jquery-rails
