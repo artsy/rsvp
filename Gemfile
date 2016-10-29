@@ -34,6 +34,8 @@ gem 'watt', '0.0.9', watt_gem_spec
 
 gem 'haml-rails'
 
+gem 'friendly_id', '~> 5.1.0'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
