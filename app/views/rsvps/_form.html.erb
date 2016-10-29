@@ -1,0 +1,32 @@
+<%= form_for(rsvp, url: create_rsvp_path) do |f| %>
+  <% if rsvp.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(rsvp.errors.count, "error") %> prohibited this rsvp from being saved:</h2>
+
+      <ul>
+      <% rsvp.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.text_field :email, class: 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :guests %>
+    <%= f.text_field :guests, class: 'form-control' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit value: 'RSVP', class: 'btn btn-primary btn-full-width' %>
+  </div>
+<% end %>

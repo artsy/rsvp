@@ -26,8 +26,13 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+gem 'bootstrap-sass', '~> 3.3.5'
+gem 'bourbon', '4.2.3'
+gem 'neat', '1.7.2'
 watt_gem_spec = { git: 'https://github.com/artsy/watt.git', branch: 'master' }
 gem 'watt', '0.0.9', watt_gem_spec
+
+gem 'haml-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  email: MyString
+  guests: MyString
+  waitlisted: false
+  event: one
+
+two:
+  name: MyString
+  email: MyString
+  guests: MyString
+  waitlisted: false
+  event: two

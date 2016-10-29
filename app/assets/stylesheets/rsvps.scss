@@ -1,0 +1,32 @@
+.rsvp {
+  width: 420px;
+  padding: 20px;
+  margin: 0 auto;
+
+  h1, h5 {
+    text-align: center;
+  }
+  h5 {
+    @include sans-serif();
+    font-size: 11px;
+    margin: 10px 0;
+  }
+  h1 {
+    margin-bottom: 10px;
+  }
+  &__header {
+    margin-bottom: 20px;
+  }
+  &__mark {
+    width: 100px;
+    margin: 0 auto;
+    svg {
+      max-width: 100%;
+      height: 50px;
+    }
+  }
+  p {
+    font-size: 16px;
+    margin: 10px 0;
+  }
+}
