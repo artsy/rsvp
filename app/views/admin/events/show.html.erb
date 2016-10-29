@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @event.name %>
+</p>
+
+<p>
+  <strong>Presented by:</strong>
+  <%= @event.presented_by %>
+</p>
+
+<p>
+  <strong>Guests allowed:</strong>
+  <%= @event.guests_allowed %>
+</p>
+
+<p>
+  <strong>Capacity:</strong>
+  <%= @event.capacity %>
+</p>
+
+<p>
+  <strong>Lock fields:</strong>
+  <%= @event.lock_fields %>
+</p>
+
+<%= link_to 'Edit', edit_admin_event_path(@event) %> |
+<%= link_to 'Back', admin_events_path %>

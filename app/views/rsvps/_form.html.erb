@@ -1,0 +1,28 @@
+<%= form_for(rsvp, url: create_rsvp_path) do |f| %>
+  <% if rsvp.errors.any? %>
+    <div class="rsvp__errors">
+      <% rsvp.errors.full_messages.each do |message| %>
+        <p><%= message %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.text_field :email, class: 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :guests %>
+    <%= f.text_field :guests, class: 'form-control' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit value: 'RSVP', class: 'btn btn-primary btn-full-width' %>
+  </div>
+<% end %>

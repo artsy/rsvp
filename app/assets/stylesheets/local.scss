@@ -1,0 +1,60 @@
+@import 'watt/base';
+@import 'bootstrap/tables';
+
+@mixin sans-serif() {
+  @include avant-garde();
+  letter-spacing: 1px;
+}
+
+@mixin serif() {
+  @include garamond();
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+}
+
+table{
+  width: 100%;
+}
+
+.table > thead > tr > th, .table > tbody > tr > td{
+  border-bottom: none;
+  vertical-align: middle;
+}
+
+section#main {
+  max-width: 100%;
+}
+
+header.navigation {
+  background: #fff;
+  color: black;
+}
+
+header.navigation .nav, header.navigation a {
+  color: black;
+}
+
+header.navigation a.brand svg g {
+  fill: black;
+}
+
+body.rsvps_new header, body.rsvps_thank_you header, body.rsvps_create header {
+  display: none;
+}
+
+label {
+  @include sans-serif();
+  font-size: 11px
+}
+
+.field {
+  padding: 5px 0;
+}
+.actions {
+  padding: 20px 0;
+}
+
+@import "rsvps";
+@import "events";

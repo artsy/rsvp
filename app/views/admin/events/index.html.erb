@@ -1,0 +1,23 @@
+<h1>Events</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>RSVP Count</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @events.each do |event| %>
+      <tr>
+        <td><%= link_to event.name, edit_admin_event_url(event) %></td>
+        <td><%= count_to_capacity(event) %></td>
+        <td><%= link_to 'Delete', admin_event_url(event), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
