@@ -27,7 +27,7 @@ class RsvpsController < ApplicationController
 
   private
     def set_event
-      @event = Event.find(params[:event_id])
+      @event = Event.friendly.find(params[:event_id])
     end
 
     def rsvp_params
