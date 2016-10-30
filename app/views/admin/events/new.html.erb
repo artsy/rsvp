@@ -1,5 +1,7 @@
-<h1>New Event</h1>
+<div class="event">
+  <div class="event__form">
+    <h1>New Event</h1>
+    <%= render 'form', event: @event %>
+  </div>
+</div>
 
-<%= render 'form', event: @event %>
-
-<%= link_to 'Back', admin_events_path %>
