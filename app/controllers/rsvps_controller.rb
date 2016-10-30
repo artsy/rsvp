@@ -3,7 +3,7 @@ class RsvpsController < ApplicationController
 
   # GET /rsvps/new
   def new
-    @rsvp = Rsvp.new
+    @rsvp = Rsvp.new name: params[:name], email: params[:email]
   end
 
   # POST /rsvps
