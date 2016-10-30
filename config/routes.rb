@@ -7,5 +7,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :events
+    get  '/events/:id/rsvps', to: 'events#rsvps', as: 'events_rsvps'
   end
+
 end

@@ -1,5 +1,7 @@
-
-<h1><%= @event.rsvp_count %> RSVPs</h1>
+<div class="edit-event__rsvps__header">
+  <h1 class="pull-left"><%= @event.rsvp_count %> RSVPs</h1>
+  <%= link_to "Export RSVPs", admin_events_rsvps_path(format: "csv"), class: 'btn btn-primary pull-right' %>
+</div>
 
 <table class="table table-striped">
   <thead>
