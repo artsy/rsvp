@@ -17,10 +17,10 @@
   height: 10px;
   border-radius: 20px;
   background-color: #eee;
-  &--red {
+  &--true {
     background-color: $red;
   }
-  &--green {
+  &--false {
     background-color: $green;
   }
 }

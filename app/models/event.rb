@@ -4,6 +4,6 @@ class Event < ApplicationRecord
   has_many :rsvps
 
   def rsvp_count
-    rsvps.count
+    rsvps.count + rsvps.inject(0) { |n, rsvp| rsvp.guests.length + n }
   end
 end
