@@ -17,7 +17,7 @@
     <%= f.text_field :email, class: 'form-control', readonly: @event.lock_fields %>
   </div>
 
-  <%- if @event.guests_allowed && !@event.is_at_capacity > 0 %>
+  <%- if @event.guests_allowed  > 0 && !@event.is_over_capacity %>
     <div class="field">
       <%= f.label "How many guests are you bringing?" %>
       <%= f.select(:no_of_guests, Array.new(@event.guests_allowed + 1) {|i| i }, {}, { class: "form-control"} ) %>
