@@ -51,4 +51,7 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  config.basic_auth_user = ENV["BASIC_AUTH_USER"]
+  config.basic_auth_password = ENV["BASIC_AUTH_PASSWORD"]
 end
