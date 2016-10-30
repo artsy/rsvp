@@ -1,4 +1,5 @@
 class Rsvp < ApplicationRecord
+  attr_accessor :no_of_guests
   belongs_to :event
 
   validates :name, presence: { message: "must be present" }

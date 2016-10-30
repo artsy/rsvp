@@ -29,6 +29,9 @@
       height: 50px;
     }
   }
+  &__guests .field {
+    display: none;
+  }
   &__errors {
     @include sans-serif();
     background-color: $red;

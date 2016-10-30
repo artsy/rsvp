@@ -56,5 +56,9 @@ label {
   padding: 20px 0;
 }
 
+select.form-control {
+  width: 40px;
+}
+
 @import "rsvps";
 @import "events";
