@@ -25,7 +25,7 @@
     <div class="rsvp__guests">
       <%- @event.guests_allowed.times do %>
          <div class="field">
-          <%= f.label 'Your Guest's Name' %>
+          <%= f.label 'Your Guest\'s Name' %>
           <%= text_field_tag 'guests[]', '', class: 'form-control' %>
         </div>
       <%- end %>
