@@ -1,6 +1,10 @@
 <div class="rsvp">
   <%= render 'header' %>
-  <p>Thank you for your RSVP.</p>
+  <%- if @event.is_over_capacity %>
+    <p>Thank you for your interest in our event <%= @event.name %>. This event is currently at capacity, but we have added your name to our waiting list and will be in touch in the chance a space opens up. We appreciate your understanding.</p>
+  <%- else %>
+    <p>Thank you for your RSVP.</p>
+  <%- end %>
   <p>Sign up for an Artsy account to discover and buy the world's greatest art online.</p>
   <div class="actions">
     <a href="https://www.artsy.net/sign_up" class="btn btn-primary btn-full-width">Sign Up</a>

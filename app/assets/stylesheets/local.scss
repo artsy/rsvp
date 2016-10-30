@@ -18,6 +18,12 @@ table{
   width: 100%;
 }
 
+.table > thead > tr > th {
+  @include sans-serif();
+  font-size: 11px;
+  font-weight: normal;
+}
+
 .table > thead > tr > th, .table > tbody > tr > td{
   border-bottom: none;
   vertical-align: middle;
@@ -54,6 +60,10 @@ label {
 }
 .actions {
   padding: 20px 0;
+}
+
+select.form-control {
+  width: 40px;
 }
 
 @import "rsvps";
