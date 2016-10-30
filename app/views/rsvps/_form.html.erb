@@ -9,12 +9,12 @@
 
   <div class="field">
     <%= f.label :name %>
-    <%= f.text_field :name, class: 'form-control' %>
+    <%= f.text_field :name, class: 'form-control', readonly: @event.lock_fields %>
   </div>
 
   <div class="field">
     <%= f.label :email %>
-    <%= f.text_field :email, class: 'form-control' %>
+    <%= f.text_field :email, class: 'form-control', readonly: @event.lock_fields %>
   </div>
 
   <%- if @event.guests_allowed > 0 %>
