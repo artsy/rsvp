@@ -1,6 +1,6 @@
 class Admin::EventsController < ApplicationController
   before_filter :authenticate
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :set_event, only: [:show, :edit, :update, :destroy, :rsvps]
 
   # GET /events
   # GET /events.json
@@ -19,6 +19,12 @@ class Admin::EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit
+  end
+
+  def rsvps
+    respond_to do |format|
+      format.csv { send_data @event.rsvps.to_csv }
+    end
   end
 
   # POST /events

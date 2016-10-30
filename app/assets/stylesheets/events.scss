@@ -10,6 +10,10 @@
   &__rsvps {
     width: 60%;
   }
+  &__rsvps__header {
+    @include clearfix();
+    padding-bottom: 20px;
+  }
 }
 
 .waitlisted {
