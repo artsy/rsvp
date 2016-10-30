@@ -1,4 +1,5 @@
 class Admin::EventsController < ApplicationController
+  before_filter :authenticate
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 
   # GET /events
@@ -69,5 +70,13 @@ class Admin::EventsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
       params.require(:event).permit(:name, :presented_by, :guests_allowed, :capacity, :lock_fields)
+    end
+
+    def authenticate
+      if Rails.env.production?
+        authenticate_or_request_with_http_basic do |username, password|
+          username == ENV["BASIC_AUTH_USER"] && password == ENV["BASIC_AUTH_PASSWORD"]
+        end
+      end
     end
 end
