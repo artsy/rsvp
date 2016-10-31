@@ -24,12 +24,12 @@
 
   <div class="field">
     <%= f.label 'How many guests are users allowed to bring?' %>
-    <%= f.number_field :guests_allowed, class: 'form-control' %>
+    <%= f.number_field :guests_allowed, class: 'form-control', placeholder: 'Enter 0 to hide the guest field', required: true %>
   </div>
 
   <div class="field">
     <%= f.label 'Event capacity' %>
-    <%= f.number_field :capacity, class: 'form-control', placeholder: 'Enter 0 to hide the guest field' %>
+    <%= f.number_field :capacity, class: 'form-control', required: true %>
   </div>
 
   <div class="field">
