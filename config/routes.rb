@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get '/', to: redirect('/admin/events')
   get '/admin', to: redirect('/admin/events')
 
   get  '/:event_id', to: 'rsvps#new', as: 'new_rsvp'

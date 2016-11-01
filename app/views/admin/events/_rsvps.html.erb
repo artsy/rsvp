@@ -21,7 +21,7 @@
         <td><%= rsvp.name %></td>
         <td><%= rsvp.email %></td>
         <td><%= rsvp.guests.join(", ") %></td>
-        <td><%= rsvp.created_at %></td>
+        <td><%= formatted_date(rsvp.created_at) %></td>
       </tr>
     <% end %>
   </tbody>
