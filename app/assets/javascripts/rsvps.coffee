@@ -6,4 +6,6 @@ $ ->
   $('#rsvp_no_of_guests').on 'change', (e) ->
     number = e.target.value
     $(".rsvp__guests  .field").hide()
+      .find('input').prop('disabled', true)
     $(".rsvp__guests  .field:lt(#{number})").show()
+      .find('input').removeAttr('disabled')

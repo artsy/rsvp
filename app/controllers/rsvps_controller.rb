@@ -31,7 +31,7 @@ class RsvpsController < ApplicationController
     end
 
     def rsvp_params
-      params[:rsvp][:guests] = params[:guests].reject { |guest| guest.blank? }
+      params[:rsvp][:guests] = params[:guests]
       params.require(:rsvp).permit(:name, :email, guests: [])
     end
 end

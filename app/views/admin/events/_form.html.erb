@@ -33,6 +33,11 @@
   </div>
 
   <div class="field">
+    <%= f.label 'Closes at' %>
+    <%= f.date_field :closes_at, class: 'form-control', required: true %>
+  </div>
+
+  <div class="field">
     <%= f.label :lock_fields %>
     <%= f.check_box :lock_fields, class: 'form-control' %>
   </div>

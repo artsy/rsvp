@@ -7,22 +7,29 @@ class Rsvp < ApplicationRecord
   validates :name, presence: { message: "must be present" }
   validates :email,
     presence: { message: "must be present" },
-    format: { with: /@/, message: "address must be valid"},
-    uniqueness: { message: "has already RSVPed"}
+    format: {
+      with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/,
+      message: "address must be valid"
+    },
+    uniqueness: { scope: :event, message: "has already RSVPed"}
+  validate :guests_cannot_be_blank
 
-  after_create :check_waitlisted
+  def guests_cannot_be_blank
+    errors.add :guests, "can't be blank" if guests.select(&:blank?).size > 0
+  end
 
-  def check_waitlisted
-    if event.rsvp_count > event.capacity
-      update_attribute :waitlisted, true
-    end
+  def waitlisted
+    index = event.rsvps.sort_by(&:created_at).find_index self
+    index + 1 > event.capacity
   end
 
   def self.to_csv(options = {})
     CSV.generate(options) do |csv|
       csv << column_names
       all.each do |rsvp|
-        csv << rsvp.attributes.values
+        attrs = rsvp.attributes
+        attrs["guests"] = attrs["guests"].join ', '
+        csv << attrs.values
       end
     end
   end
