@@ -5,7 +5,7 @@ class Admin::EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @events = Event.all
+    @events = Event.order closes_at: :desc
   end
 
   # GET /events/1

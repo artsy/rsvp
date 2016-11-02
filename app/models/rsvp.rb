@@ -20,16 +20,33 @@ class Rsvp < ApplicationRecord
 
   def waitlisted
     index = event.rsvps.sort_by(&:created_at).find_index self
-    index + 1 > event.capacity
+    leading_rsvps = event.rsvps[0...index]
+    return false unless leading_rsvps.size > 0
+    total_leading_guests = leading_rsvps
+      .map { |r| r.guests.size + 1 }
+      .reduce { |a,b| a + b }
+    total_leading_guests + self.guests.size + 1 > event.capacity
   end
 
   def self.to_csv(options = {})
+
     CSV.generate(options) do |csv|
-      csv << column_names
+      csv << [
+        "id",
+        "email",
+        "created at",
+        "guests",
+        "waitlisted",
+        "first name",
+        "last name"
+      ]
       all.each do |rsvp|
-        attrs = rsvp.attributes
-        attrs["guests"] = attrs["guests"].join ', '
-        csv << attrs.values
+        cols = rsvp.attributes.slice("id", "email", "created_at").values
+        cols << rsvp.attributes["guests"].join(', ')
+        cols << (rsvp.waitlisted ? "Yes" : " ")
+        cols << rsvp.attributes["name"].split(' ')[0]
+        cols << rsvp.attributes["name"].split(' ')[1]
+        csv << cols
       end
     end
   end
