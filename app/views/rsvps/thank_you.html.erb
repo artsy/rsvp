@@ -1,7 +1,7 @@
 <div class="rsvp">
   <%= render 'header' %>
   <%- if @event.is_over_capacity %>
-    <p>Thank you for your interest in our event <%= @event.name %>. This event is currently at capacity, but we have added your name to our waiting list and will be in touch in the chance a space opens up. We appreciate your understanding.</p>
+    <p>Thank you for your interest in <%= @event.name %>. This event is currently at capacity, but we have added your name to our waiting list and will be in touch in the chance a space opens up. We appreciate your understanding.</p>
   <%- else %>
     <p>Thank you for your RSVP.</p>
   <%- end %>
