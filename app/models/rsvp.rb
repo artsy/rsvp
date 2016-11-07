@@ -14,6 +14,12 @@ class Rsvp < ApplicationRecord
     uniqueness: { scope: :event, message: "has already RSVPed"}
   validate :guests_cannot_be_blank
 
+  before_validation :strip_email
+
+  def strip_email
+    email.strip!
+  end
+
   def guests_cannot_be_blank
     errors.add :guests, "can't be blank" if guests.select(&:blank?).size > 0
   end

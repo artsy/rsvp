@@ -64,6 +64,25 @@ label {
 
 select.form-control {
   width: 40px;
+  @media (max-width: $screen-sm-max) {
+    width: 100%;
+  }
+}
+
+.rsvps-new-guests {
+  @media (max-width: $screen-sm-max) {
+    position: relative;
+    &::after {
+      content: '▼';
+      position: absolute;
+      top: 34px;
+      right: 10px;
+      font-size: 10px;
+      color: $gray-dark;
+      border-left: 1px solid $gray-light;
+      padding: 8px 0 3px 8px;
+    }
+  }
 }
 
 @import "rsvps";
