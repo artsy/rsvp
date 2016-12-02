@@ -14,6 +14,11 @@
     @include clearfix();
     padding-bottom: 20px;
   }
+
+  .help a {
+    font-size: 11px;
+    color: $gray-dark;
+  }
 }
 
 .waitlisted {
