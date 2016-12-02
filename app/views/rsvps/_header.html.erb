@@ -4,4 +4,9 @@
   </div>
   <h5><%= @event.presented_by %></h5>
   <h1><%= @event.name %></h1>
+  <% if @event.description.present? %>
+    <div class="center">
+      <%= markdown @event.description %>
+    </div>
+  <% end %>
 </div>

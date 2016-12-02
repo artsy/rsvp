@@ -23,6 +23,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :description %> <span class="help"><a href="https://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown formatted</a></span>
+    <%= f.text_area :description, rows: 3, class: 'form-control' %>
+  </div>
+
+  <div class="field">
     <%= f.label 'How many guests are users allowed to bring?' %>
     <%= f.number_field :guests_allowed, class: 'form-control', placeholder: 'Enter 0 to hide the guest field', required: true %>
   </div>
