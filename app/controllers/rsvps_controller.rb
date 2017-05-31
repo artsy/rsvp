@@ -9,16 +9,16 @@ class RsvpsController < ApplicationController
   # POST /rsvps
   # POST /rsvps.json
   def create
-    @rsvp = Rsvp.new(rsvp_params.merge event: @event)
-
+    @rsvp = Constellation.create_rsvp!(rsvp_params.merge event_id: @event.id)
     respond_to do |format|
-      if @rsvp.save
-        format.html { redirect_to thank_rsvp_url(@event) }
-        format.json { render :show, status: :created, location: @rsvp }
-      else
-        format.html { render :new }
-        format.json { render json: @rsvp.errors, status: :unprocessable_entity }
-      end
+      format.html { redirect_to thank_rsvp_url(@event) }
+    end
+  rescue ConstellationHttpException => e
+    respond_to do |format|
+      # Add some locals that simple form expects (+ errors)
+      @rsvp = Rsvp.new
+      @error = e.message
+      format.html { render :new }
     end
   end
 
@@ -31,7 +31,10 @@ class RsvpsController < ApplicationController
     end
 
     def rsvp_params
-      params[:rsvp][:guests] = params[:guests]
-      params.require(:rsvp).permit(:name, :email, guests: [])
+      params[:rsvp][:guests] = []
+      params[:guest_names]&.each_with_index do |name, idx|
+        params[:rsvp][:guests] << { name: name, email: params[:guest_emails][idx] }
+      end
+      params.require(:rsvp).permit(:name, :email, guests: [:name, :email])
     end
 end
