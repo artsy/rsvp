@@ -7,10 +7,7 @@ module Constellation
     return unless constellation_enabled?
     uri = URI.parse("#{app}/rsvps")
     http = Net::HTTP.new(uri.host, uri.port)
-    unless Rails.env.development?
-      http.use_ssl = true
-      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-    end
+    http.use_ssl = true
     req = Net::HTTP::Post.new(uri.path, headers)
     req.body = { rsvp: rsvp_params }.to_json
     response = http.request(req)
