@@ -3,6 +3,27 @@ end
 
 require 'net/http'
 module Constellation
+  HTTP_ERRORS = [
+    Errno::ETIMEDOUT,
+    Timeout::Error,
+    Net::OpenTimeout,
+    Net::ReadTimeout,
+    EOFError,
+    Errno::ECONNABORTED,
+    Errno::ECONNREFUSED,
+    Errno::ECONNRESET,
+    Errno::EHOSTDOWN,
+    Errno::EHOSTUNREACH,
+    Errno::EINVAL,
+    Errno::ENETUNREACH,
+    SocketError,
+    OpenSSL::SSL::SSLError,
+    Net::HTTPBadResponse,
+    Net::HTTPHeaderSyntaxError,
+    Net::ProtocolError,
+    Zlib::GzipFile::Error,
+  ]
+
   def self.create_rsvp!(rsvp_params)
     return unless constellation_enabled?
     uri = URI.parse("#{app}/rsvps")
@@ -13,6 +34,8 @@ module Constellation
     response = http.request(req)
     raise ConstellationHttpException, response.body unless response.code == '201'
     JSON.parse(response.body)
+  rescue *HTTP_ERRORS => e
+    raise ConstellationHttpException, e.message
   end
 
   def self.constellation_enabled?

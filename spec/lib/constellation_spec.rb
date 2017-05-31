@@ -22,5 +22,13 @@ describe 'Constellation module' do
         expect(e.message).to eq 'uh oh'
       end
     end
+    it 'raises an exception on a more generic http error' do
+      allow(Net::HTTP).to receive(:new).and_raise(SocketError.new('uh oh'))
+      expect do
+        Constellation.create_rsvp!(rsvp_params)
+      end.to raise_error(ConstellationHttpException) do |e|
+        expect(e.message).to eq 'uh oh'
+      end
+    end
   end
 end
