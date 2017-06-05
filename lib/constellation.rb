@@ -1,8 +1,7 @@
-class ConstellationHttpException < StandardError
-end
-
 require 'net/http'
 module Constellation
+  class HttpException < StandardError
+  end
   HTTP_ERRORS = [
     Errno::ETIMEDOUT,
     Timeout::Error,
@@ -32,10 +31,10 @@ module Constellation
     req = Net::HTTP::Post.new(uri.path, headers)
     req.body = { rsvp: rsvp_params }.to_json
     response = http.request(req)
-    raise ConstellationHttpException, response.body unless response.code == '201'
+    raise Constellation::HttpException, response.body unless response.code == '201'
     JSON.parse(response.body)
   rescue *HTTP_ERRORS => e
-    raise ConstellationHttpException, e.message
+    raise Constellation::HttpException, e.message
   end
 
   def self.constellation_enabled?

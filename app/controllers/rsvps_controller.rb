@@ -13,7 +13,7 @@ class RsvpsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to thank_rsvp_url(@event) }
     end
-  rescue ::ConstellationHttpException => e
+  rescue Constellation::HttpException => e
     respond_to do |format|
       # Add some locals that simple form expects (+ errors)
       @rsvp = Rsvp.new
