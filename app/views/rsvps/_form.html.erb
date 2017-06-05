@@ -1,9 +1,7 @@
 <%= form_for(rsvp, url: create_rsvp_path) do |f| %>
-  <% if rsvp.errors.any? %>
+  <% if error %>
     <div class="rsvp__errors">
-      <% rsvp.errors.full_messages.each do |message| %>
-        <p><%= message %></p>
-      <% end %>
+      <p><%= error %></p>
     </div>
   <% end %>
 
@@ -24,9 +22,15 @@
     </div>
     <div class="rsvp__guests">
       <%- @event.guests_allowed.times do %>
-         <div class="field">
-          <%= f.label 'Your Guest\'s Name' %>
-          <%= text_field_tag 'guests[]', '', disabled: true, class: 'form-control' %>
+        <div class="guest-fields">
+          <div class="field">
+            <%= f.label 'Your Guest\'s Name' %>
+            <%= text_field_tag 'guest_names[]', '', disabled: true, class: 'form-control' %>
+          </div>
+          <div class="field">
+            <%= f.label 'Your Guest\'s Email' %>
+            <%= text_field_tag 'guest_emails[]', '', disabled: true, class: 'form-control' %>
+          </div>
         </div>
       <%- end %>
     </div>
