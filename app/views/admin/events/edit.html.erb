@@ -4,7 +4,11 @@
     <%= render 'form', event: @event %>
   </div>
   <div class="event__rsvps">
-    <%= render 'rsvps' %>
+    <h1>Viewing RSVPs</h1>
+    <br />
+    <h3>To view RSVP's for this event, please use <a href='https://artsy.looker.com/looks/4102'>Looker</a> to pull the list of attendees.</h3>
+    <br />
+    Please note that this data is subject to a 24 hour lag period before it's accessible to you via Looker. To refresh the data in Looker, please run <a href='http://joe.artsy.net:9000/view/All/job/refresh-rsvps-in-looker/'>this Jenkins task</a> (click 'Build Now'). Once the job has succeeded, refresh your Look.
   </div>
 </div>
 
