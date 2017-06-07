@@ -3,6 +3,8 @@ RSVP
 
 App for collecting RSVPs for onsite and comms events
 
+Note: This app just holds event information. The RSVP back-end functionality has been deprecated, in favor of sending data to Looker, and [CRM](https://github.com/artsy/constellation).
+
 Meta
 ---
 [![Build Status](https://semaphoreci.com/api/v1/artsy-it/rsvp-rails/branches/master/badge.svg)](https://semaphoreci.com/artsy-it/rsvp-rails)
