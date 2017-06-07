@@ -33,7 +33,11 @@ class RsvpsController < ApplicationController
     def rsvp_params
       params[:rsvp][:guests] = []
       params[:guest_names]&.each_with_index do |name, idx|
-        params[:rsvp][:guests] << { name: name, email: params[:guest_emails][idx] }
+        guest_info = {}
+        guest_info[:name] = name
+        email = params[:guest_emails][idx]
+        guest_info[:email] = email if email.present?
+        params[:rsvp][:guests] << guest_info
       end
       params.require(:rsvp).permit(:name, :email, guests: [:name, :email])
     end
