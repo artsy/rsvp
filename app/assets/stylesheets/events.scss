@@ -9,6 +9,9 @@
   }
   &__rsvps {
     width: 60%;
+    a {
+      text-decoration: underline;
+    }
   }
   &__rsvps__header {
     @include clearfix();
