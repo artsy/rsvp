@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161202193347) do
+ActiveRecord::Schema.define(version: 20170608160905) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20161202193347) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.string   "slug"
-    t.datetime "closes_at"
+    t.datetime "closes_at",      null: false
     t.string   "fine_print"
     t.text     "description"
   end
@@ -41,15 +41,4 @@ ActiveRecord::Schema.define(version: 20161202193347) do
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
   end
 
-  create_table "rsvps", force: :cascade do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "guests",     default: [],              array: true
-    t.integer  "event_id"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.index ["event_id"], name: "index_rsvps_on_event_id", using: :btree
-  end
-
-  add_foreign_key "rsvps", "events"
 end
