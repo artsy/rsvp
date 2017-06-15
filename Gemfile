@@ -40,6 +40,8 @@ gem 'friendly_id', '~> 5.1.0'
 
 gem 'redcarpet'
 
+gem 'newrelic_rpm'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
