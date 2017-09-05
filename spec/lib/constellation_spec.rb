@@ -7,12 +7,13 @@ describe 'Constellation module' do
       allow(RsvpRails).to receive(:config).and_return(jwt_token: 'token', constellation_url: 'https://example.com')
     end
     let(:rsvp_params) { { name: 'Matt', email: 'matt@email.com' } }
-    let(:successful_stub) { stub_request(:post, 'https://example.com/rsvps').to_return(body: '{}', status: 201) }
+    let(:successful_stub) { stub_request(:post, 'https://example.com/rsvps').to_return(body: '{}', status: 201, headers: { 'X-Total-Count' => '3' }) }
     let(:unsuccessful_stub) { stub_request(:post, 'https://example.com/rsvps').to_return(body: 'uh oh', status: 400) }
-    it 'makes the right POST request with headers and body' do
+    it 'makes the right POST request with headers and body, and returns the total count' do
       successful_stub
-      Constellation.create_rsvp!(rsvp_params)
+      _, count = Constellation.create_rsvp!(rsvp_params)
       expect(successful_stub).to have_been_requested
+      expect(count).to eq 3
     end
     it 'raises an exception on an unsuccessful rsvp create' do
       unsuccessful_stub

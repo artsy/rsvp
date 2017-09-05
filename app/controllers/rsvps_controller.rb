@@ -9,9 +9,9 @@ class RsvpsController < ApplicationController
   # POST /rsvps
   # POST /rsvps.json
   def create
-    @rsvp = Constellation.create_rsvp!(rsvp_params.merge event_id: @event.id)
+    @rsvp, total_count = Constellation.create_rsvp!(rsvp_params.merge event_id: @event.id)
     respond_to do |format|
-      format.html { redirect_to thank_rsvp_url(@event) }
+      format.html { redirect_to thank_rsvp_url(@event, total_count: total_count) }
     end
   rescue Constellation::HttpException => e
     respond_to do |format|
@@ -23,6 +23,7 @@ class RsvpsController < ApplicationController
   end
 
   def thank_you
+    @total_count = (params[:total_count] || 0).to_i
   end
 
   private
