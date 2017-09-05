@@ -29,10 +29,10 @@ module Constellation
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
     req = Net::HTTP::Post.new(uri.path, headers)
-    req.body = { rsvp: rsvp_params }.to_json
+    req.body = { rsvp: rsvp_params.merge(total_count: true) }.to_json
     response = http.request(req)
     raise Constellation::HttpException, response.body unless response.code == '201'
-    JSON.parse(response.body)
+    return JSON.parse(response.body), response['X-Total-Count'].to_i
   rescue *HTTP_ERRORS => e
     raise Constellation::HttpException, e.message
   end
