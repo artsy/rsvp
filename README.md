@@ -7,7 +7,7 @@ Note: This app just holds event information. The RSVP back-end functionality has
 
 Meta
 ---
-[![Build Status](https://circleci.com/gh/artsy/rsvp-rails.svg?style=svg)](https://circleci.com/gh/artsy/rsvp-rails)
+[![Build Status](https://circleci.com/gh/artsy/rsvp.svg?style=svg)](https://circleci.com/gh/artsy/rsvp)
 * __State:__ production
 * __Github:__ [https://github.com/artsy/rsvp/](https://github.com/artsy/rsvp/)
 * __Point People:__ [@mzikherman](https://github.com/mzikherman)
