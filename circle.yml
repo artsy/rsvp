@@ -6,9 +6,9 @@ deployment:
     branch: release
     owner: artsy
     commands:
-      - git push git@heroku.com:artsy-rsvp.git $CIRCLE_SHA1:refs/heads/master
-      - heroku run --exit-code rake db:migrate --app artsy-rsvp
-      - heroku restart --app artsy-rsvp
+      - git push git@heroku.com:artsy-rsvp-production.git $CIRCLE_SHA1:refs/heads/master
+      - heroku run --exit-code rake db:migrate --app artsy-rsvp-production
+      - heroku restart --app artsy-rsvp-production
   staging:
     branch: master
     owner: artsy
