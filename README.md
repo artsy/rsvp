@@ -7,10 +7,10 @@ Note: This app just holds event information. The RSVP back-end functionality has
 
 Meta
 ---
-[![Build Status](https://semaphoreci.com/api/v1/artsy-it/rsvp-rails/branches/master/badge.svg)](https://semaphoreci.com/artsy-it/rsvp-rails)
-* __State:__ development
-* __Github:__ [https://github.com/artsy/rsvp_rails/](https://github.com/artsy/rsvp_rails/)
-* __Point People:__ [@broskoski](https://github.com/broskoski)
+[![Build Status](https://circleci.com/gh/artsy/rsvp.svg?style=svg)](https://circleci.com/gh/artsy/rsvp)
+* __State:__ production
+* __Github:__ [https://github.com/artsy/rsvp/](https://github.com/artsy/rsvp/)
+* __Point People:__ [@mzikherman](https://github.com/mzikherman)
 
 Dependencies
 ---
