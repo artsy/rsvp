@@ -11,6 +11,7 @@ Meta
 * __State:__ production
 * __Github:__ [https://github.com/artsy/rsvp/](https://github.com/artsy/rsvp/)
 * __Point People:__ [@mzikherman](https://github.com/mzikherman)
+* __Branches:__ PRs to `master` are automatically built and deployed to staging. PRs from `master` to `release` are automatically deployed to production. [Start a deploy...](https://github.com/artsy/rsvp/compare/release...master?expand=1)
 
 Dependencies
 ---
