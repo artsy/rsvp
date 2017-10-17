@@ -1,0 +1,54 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://constellation-staging.artsy.net/api/graphql/
+    body:
+      encoding: UTF-8
+      string: '{"query":"mutation Constellation__CreateRsvpMutation($input: createRsvpInput!)
+        {\n  createRsvp(input: $input) {\n    id\n    total_count\n  }\n}","variables":{"input":{"name":"Matt","email":"matt@email.com","event_id":""}},"operationName":"Constellation__CreateRsvpMutation"}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - application/json
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYXRzIn0.b1QuYVsSaM6uAQ8427p0lwCciJlWd55pe-q3lm0aCpA
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Cowboy
+      Date:
+      - Wed, 18 Oct 2017 21:04:31 GMT
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"647a631a87d270b4b85dbb175caba7bb"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 89b84068-6773-4cce-8866-477391e4c64b
+      X-Runtime:
+      - '0.034033'
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: '{"data":{"createRsvp":null},"errors":[{"message":"Validation failed:
+        Event can''t be blank","locations":[{"line":2,"column":3}],"path":["createRsvp"]}]}'
+    http_version: 
+  recorded_at: Wed, 18 Oct 2017 21:04:31 GMT
+recorded_with: VCR 3.0.3

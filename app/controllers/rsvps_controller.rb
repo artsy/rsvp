@@ -9,12 +9,12 @@ class RsvpsController < ApplicationController
   # POST /rsvps
   # POST /rsvps.json
   def create
-    @rsvp, total_count = Constellation.create_rsvp!(rsvp_params.merge event_id: @event.id)
+    _, total_count = Constellation.create_rsvp!(rsvp_params.merge event_id: @event.id)
     respond_to do |format|
       format.html { redirect_to thank_rsvp_url(@event, total_count: total_count) }
     end
-  rescue StandardError => e
-    logger.warn(e.backtrace)
+  rescue Constellation::GraphQLException, Constellation::HttpException => e
+    logger.warn(e.message)
     respond_to do |format|
       # Add some locals that simple form expects (+ errors)
       @rsvp = Rsvp.new

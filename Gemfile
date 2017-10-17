@@ -35,6 +35,10 @@ group :development, :test do
   gem 'dotenv-rails', require: 'dotenv/rails-now'
 end
 
+group :test do
+  gem 'vcr'
+end
+
 group :development do
   gem 'web-console'
   gem 'listen', '~> 3.0.5'

@@ -3,24 +3,21 @@ require 'rails_helper'
 describe 'Constellation module' do
   
   context 'requests' do
-    before do
-      allow(RsvpRails).to receive(:config).and_return(jwt_token: 'token', constellation_url: 'https://example.com')
-    end
-    let(:rsvp_params) { { name: 'Matt', email: 'matt@email.com' } }
-    let(:successful_stub) { stub_request(:post, 'https://example.com/rsvps').to_return(body: '{}', status: 201, headers: { 'X-Total-Count' => '3' }) }
-    let(:unsuccessful_stub) { stub_request(:post, 'https://example.com/rsvps').to_return(body: 'uh oh', status: 400) }
+    let(:rsvp_params) { { name: 'Matt', email: 'matt@email.com', event_id: "420" }.with_indifferent_access }
     it 'makes the right POST request with headers and body, and returns the total count' do
-      successful_stub
-      _, count = Constellation.create_rsvp!(rsvp_params)
-      expect(successful_stub).to have_been_requested
-      expect(count).to eq 3
+      VCR.use_cassette('successful Constellation creation') do
+        _, count = Constellation.create_rsvp!(rsvp_params)
+        expect(count).to eq 1
+      end
     end
     it 'raises an exception on an unsuccessful rsvp create' do
-      unsuccessful_stub
-      expect do
-        Constellation.create_rsvp!(rsvp_params)
-      end.to raise_error(Constellation::HttpException) do |e|
-        expect(e.message).to eq 'uh oh'
+      rsvp_params.delete(:event_id)
+      VCR.use_cassette('unsuccessful Constellation creation') do
+        expect do
+          Constellation.create_rsvp!(rsvp_params)
+        end.to raise_error(Constellation::GraphQLException) do |e|
+          expect(e.message).to eq 'Validation failed: Event can\'t be blank'
+        end
       end
     end
     it 'raises an exception on a more generic http error' do

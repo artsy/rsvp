@@ -29,6 +29,18 @@ Setup
 rake db:setup # will create, migrate and seed the db
 ```
 
+Using VSCode (highly recommended)
+----
+It's generally encouraged to develop with VSCode, and take advantage of some of the recommended extensions. These include GraphQL syntax highlighting, autocomplete, cmd + click to see the definition, etc. This is a big boost over simpler editor experiences, which you might ordinarily use in Ruby projects.
+
+Here are those setup comnands:
+
+```sh
+brew update; brew install watchman
+npm install @playlyfe/gql
+rake graphql:dump_schema  # This writes Constellation's GraphQL schema (fetched from Staging) to disk, powering the VSCode extensions.
+```
+
 * Start the application
 
 ```ruby
