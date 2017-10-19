@@ -1,5 +1,8 @@
-require 'net/http'
+require "graphql/client"
+require "graphql/client/http"
 module Constellation
+  class GraphQLException < StandardError
+  end
   class HttpException < StandardError
   end
   HTTP_ERRORS = [
@@ -23,36 +26,35 @@ module Constellation
     Zlib::GzipFile::Error,
   ]
 
+  HTTP = GraphQL::Client::HTTP.new("#{RsvpRails.config[:constellation_url]}/api/graphql/") do
+    def headers(_)
+      { 'Authorization' => "Bearer #{RsvpRails.config[:constellation_jwt_token]}" }
+    end
+  end
+  Schema = GraphQL::Client.load_schema(HTTP)
+  Client = GraphQL::Client.new(schema: Schema, execute: HTTP)
+
+  CreateRsvpMutation = Client.parse <<-GRAPHQL
+    mutation($input: createRsvpInput!) {
+      createRsvp(input: $input) {
+        id
+        total_count
+      }
+    }
+  GRAPHQL
+
   def self.create_rsvp!(rsvp_params)
-    return unless constellation_enabled?
-    uri = URI.parse("#{app}/rsvps")
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = true
-    req = Net::HTTP::Post.new(uri.path, headers)
-    req.body = { rsvp: rsvp_params.merge(total_count: true) }.to_json
-    response = http.request(req)
-    raise Constellation::HttpException, response.body unless response.code == '201'
-    return JSON.parse(response.body), response['X-Total-Count'].to_i
+    rsvp_params[:event_id] = rsvp_params[:event_id].to_s
+    response = Client.query(CreateRsvpMutation, variables: { input: rsvp_params.to_h })
+    response = response.to_h
+
+    if response['errors'] && response['errors'].any?
+      message = response['errors'].map { |e| e['message'] }.join(', ')
+      raise Constellation::GraphQLException, message
+    end
+
+    return response['data'], response['data']['createRsvp']['total_count']
   rescue *HTTP_ERRORS => e
     raise Constellation::HttpException, e.message
-  end
-
-  def self.constellation_enabled?
-    app && token
-  end
-
-  def self.app
-    RsvpRails.config[:constellation_url]
-  end
-
-  def self.token
-    RsvpRails.config[:jwt_token]
-  end
-
-  def self.headers
-    {
-      'Authorization' => token,
-      'Content-type' => 'application/json'
-    }
   end
 end

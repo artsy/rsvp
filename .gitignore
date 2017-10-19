@@ -20,3 +20,6 @@ capybara-*.html
 .byebug_history
 
 .env
+
+node_modules/
+data/
