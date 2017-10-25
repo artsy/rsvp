@@ -2,13 +2,15 @@ module Constellation
 
   class GraphQLException < StandardError; end;
 
-  def self.create_rsvp!(rsvp_params)
-    client = Graphlient::Client.new(
+  def self.client
+    Graphlient::Client.new(
       "#{RsvpRails.config[:constellation_url]}/api/graphql/",
       headers: {
         'Authorization' => "Bearer #{RsvpRails.config[:constellation_jwt_token]}"
     })
+  end
 
+  def self.create_rsvp!(rsvp_params)
     mutation = <<-GRAPHQL
       mutation($input: createRsvpInput!) {
         createRsvp(input: $input) {
