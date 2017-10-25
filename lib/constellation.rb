@@ -1,60 +1,34 @@
-require "graphql/client"
-require "graphql/client/http"
 module Constellation
-  class GraphQLException < StandardError
-  end
-  class HttpException < StandardError
-  end
-  HTTP_ERRORS = [
-    Errno::ETIMEDOUT,
-    Timeout::Error,
-    Net::OpenTimeout,
-    Net::ReadTimeout,
-    EOFError,
-    Errno::ECONNABORTED,
-    Errno::ECONNREFUSED,
-    Errno::ECONNRESET,
-    Errno::EHOSTDOWN,
-    Errno::EHOSTUNREACH,
-    Errno::EINVAL,
-    Errno::ENETUNREACH,
-    SocketError,
-    OpenSSL::SSL::SSLError,
-    Net::HTTPBadResponse,
-    Net::HTTPHeaderSyntaxError,
-    Net::ProtocolError,
-    Zlib::GzipFile::Error,
-  ]
 
-  HTTP = GraphQL::Client::HTTP.new("#{RsvpRails.config[:constellation_url]}/api/graphql/") do
-    def headers(_)
-      { 'Authorization' => "Bearer #{RsvpRails.config[:constellation_jwt_token]}" }
-    end
-  end
-  Schema = GraphQL::Client.load_schema(HTTP)
-  Client = GraphQL::Client.new(schema: Schema, execute: HTTP)
-
-  CreateRsvpMutation = Client.parse <<-GRAPHQL
-    mutation($input: createRsvpInput!) {
-      createRsvp(input: $input) {
-        id
-        total_count
-      }
-    }
-  GRAPHQL
+  class GraphQLException < StandardError; end;
 
   def self.create_rsvp!(rsvp_params)
-    rsvp_params[:event_id] = rsvp_params[:event_id].to_s
-    response = Client.query(CreateRsvpMutation, variables: { input: rsvp_params.to_h })
-    response = response.to_h
+    client = Graphlient::Client.new(
+      "#{RsvpRails.config[:constellation_url]}/api/graphql/",
+      headers: {
+        'Authorization' => "Bearer #{RsvpRails.config[:constellation_jwt_token]}"
+    })
 
-    if response['errors'] && response['errors'].any?
-      message = response['errors'].map { |e| e['message'] }.join(', ')
+    mutation = <<-GRAPHQL
+      mutation($input: createRsvpInput!) {
+        createRsvp(input: $input) {
+          id
+          total_count
+        }
+      }
+    GRAPHQL
+
+    variables = { input: rsvp_params.to_h }
+    variables[:input][:event_id] = variables[:input][:event_id].to_s
+
+    response = client.execute(mutation, variables)
+
+    if response.data.errors.any?
+      error_messages = response.data.errors.messages.to_h
+      message = error_messages.map { |_, e| e.join(', ') }.join(', ')
       raise Constellation::GraphQLException, message
     end
 
-    return response['data'], response['data']['createRsvp']['total_count']
-  rescue *HTTP_ERRORS => e
-    raise Constellation::HttpException, e.message
+    return response.data, response.data.create_rsvp.total_count
   end
 end

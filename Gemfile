@@ -26,7 +26,7 @@ gem 'redcarpet'
 
 gem 'newrelic_rpm'
 
-gem 'graphql-client'
+gem 'graphlient'
 
 group :development, :test do
   gem 'byebug', platform: :mri
