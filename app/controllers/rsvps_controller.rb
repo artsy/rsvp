@@ -13,7 +13,7 @@ class RsvpsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to thank_rsvp_url(@event, total_count: total_count) }
     end
-  rescue Constellation::GraphQLException, Constellation::HttpException => e
+  rescue StandardError => e
     logger.warn(e.message)
     respond_to do |format|
       # Add some locals that simple form expects (+ errors)
