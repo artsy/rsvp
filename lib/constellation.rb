@@ -1,58 +1,36 @@
-require 'net/http'
 module Constellation
-  class HttpException < StandardError
+
+  class GraphQLException < StandardError; end;
+
+  def self.client
+    Graphlient::Client.new(
+      "#{RsvpRails.config[:constellation_url]}/api/graphql/",
+      headers: {
+        'Authorization' => "Bearer #{RsvpRails.config[:constellation_jwt_token]}"
+    })
   end
-  HTTP_ERRORS = [
-    Errno::ETIMEDOUT,
-    Timeout::Error,
-    Net::OpenTimeout,
-    Net::ReadTimeout,
-    EOFError,
-    Errno::ECONNABORTED,
-    Errno::ECONNREFUSED,
-    Errno::ECONNRESET,
-    Errno::EHOSTDOWN,
-    Errno::EHOSTUNREACH,
-    Errno::EINVAL,
-    Errno::ENETUNREACH,
-    SocketError,
-    OpenSSL::SSL::SSLError,
-    Net::HTTPBadResponse,
-    Net::HTTPHeaderSyntaxError,
-    Net::ProtocolError,
-    Zlib::GzipFile::Error,
-  ]
 
   def self.create_rsvp!(rsvp_params)
-    return unless constellation_enabled?
-    uri = URI.parse("#{app}/rsvps")
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = true
-    req = Net::HTTP::Post.new(uri.path, headers)
-    req.body = { rsvp: rsvp_params.merge(total_count: true) }.to_json
-    response = http.request(req)
-    raise Constellation::HttpException, response.body unless response.code == '201'
-    return JSON.parse(response.body), response['X-Total-Count'].to_i
-  rescue *HTTP_ERRORS => e
-    raise Constellation::HttpException, e.message
-  end
+    mutation = <<-GRAPHQL
+      mutation($input: createRsvpInput!) {
+        createRsvp(input: $input) {
+          id
+          total_count
+        }
+      }
+    GRAPHQL
 
-  def self.constellation_enabled?
-    app && token
-  end
+    variables = { input: rsvp_params.to_h }
+    variables[:input][:event_id] = variables[:input][:event_id].to_s
 
-  def self.app
-    RsvpRails.config[:constellation_url]
-  end
+    response = client.execute(mutation, variables)
 
-  def self.token
-    RsvpRails.config[:jwt_token]
-  end
+    if response.data.errors.any?
+      error_messages = response.data.errors.messages.to_h
+      message = error_messages.map { |_, e| e.join(', ') }.join(', ')
+      raise Constellation::GraphQLException, message
+    end
 
-  def self.headers
-    {
-      'Authorization' => token,
-      'Content-type' => 'application/json'
-    }
+    return response.data, response.data.create_rsvp.total_count
   end
 end

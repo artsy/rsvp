@@ -18,3 +18,8 @@ capybara-*.html
 
 # Ignore Byebug command history file.
 .byebug_history
+
+.env
+
+node_modules/
+data/
