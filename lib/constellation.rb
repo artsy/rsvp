@@ -1,7 +1,4 @@
 module Constellation
-
-  class GraphQLException < StandardError; end;
-
   def self.client
     Graphlient::Client.new(
       "#{RsvpRails.config[:constellation_url]}/api/graphql/",
@@ -24,12 +21,6 @@ module Constellation
     variables[:input][:event_id] = variables[:input][:event_id].to_s
 
     response = client.execute(mutation, variables)
-
-    if response.data.errors.any?
-      error_messages = response.data.errors.messages.to_h
-      message = error_messages.map { |_, e| e.join(', ') }.join(', ')
-      raise Constellation::GraphQLException, message
-    end
 
     return response.data, response.data.create_rsvp.total_count
   end
