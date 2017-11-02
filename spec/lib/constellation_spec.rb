@@ -15,8 +15,8 @@ describe 'Constellation module' do
       VCR.use_cassette('unsuccessful Constellation creation') do
         expect do
           Constellation.create_rsvp!(rsvp_params)
-        end.to raise_error(Constellation::GraphQLException) do |e|
-          expect(e.message).to eq "Validation failed: Event can't be blank"
+        end.to raise_error Graphlient::Errors::ExecutionError do |e|
+          expect(e.message).to eq "createRsvp: Validation failed: Event can't be blank"
         end
       end
     end
