@@ -8,7 +8,7 @@ Note: This app just holds event information. The RSVP back-end functionality has
 
 [![Build Status](https://circleci.com/gh/artsy/rsvp.svg?style=svg)](https://circleci.com/gh/artsy/rsvp)
 
-* __State:__ production
+* __State:__ **retired** as of July 5th, 2019
 * __Production:__: [rsvp.artsy.net](https://rsvp.artsy.net), [artsy-rsvp-production](https://dashboard.heroku.com/apps/artsy-rsvp-production)
 * __Staging:__: [artsy-rsvp-staging.herokuapp.com](https://artsy-rsvp-staging.herokuapp.com), [artsy-rsvp-staging](https://dashboard.heroku.com/apps/artsy-rsvp-staging)
 * __Github:__ [https://github.com/artsy/rsvp/](https://github.com/artsy/rsvp/)
